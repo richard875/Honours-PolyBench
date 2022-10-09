@@ -1,3 +1,5 @@
+import pathlib
+
 ROOT_FOLDER = "polybench-c-4.2.1-beta"
 MAIN_FOLDERs = ["datamining", "linear-algebra", "medley", "stencils"]
 LINEAR_ALGEBRA_FOLDERs = ["blas", "kernels", "solvers"]
@@ -17,8 +19,9 @@ def get_all_files():
         if folder == "linear-algebra":
             for subfolder in LINEAR_ALGEBRA_FOLDERs:
                 for file in ALL_FILES[subfolder]:
-                    all_files.append(ROOT_FOLDER + "/" + folder + "/" + subfolder + "/" + file)
+                    all_files.append([file, f"{pathlib.Path(__file__).parent.resolve()}/{ROOT_FOLDER}/{folder}/{subfolder}/{file}"])
         else:
             for file in ALL_FILES[folder]:
-                all_files.append(ROOT_FOLDER + "/" + folder + "/" + file)
-    return all_files
+                    all_files.append([file, f"{pathlib.Path(__file__).parent.resolve()}/{ROOT_FOLDER}/{folder}/{file}"])
+        
+    return [all_files[0]]
